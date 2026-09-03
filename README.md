@@ -37,6 +37,23 @@ Learning Repository / Kaggle). El archivo **no está versionado en git** (ver
    o [Kaggle](https://www.kaggle.com/datasets/stephanmatzka/predictive-maintenance-dataset-ai4i-2020).
 2. Guarda el archivo como `data/raw/ai4i2020.csv` (crea la carpeta `raw` si no existe).
 
+## Experiment Tracking (MLflow)
+
+Los experimentos de entrenamiento se trackean con MLflow. Los runs se guardan
+localmente en `mlruns/` (no versionado en git — se regenera al correr el
+notebook, igual que la data), así que para verlos:
+
+1. Corre [`notebooks/02_mlflow_tracking.ipynb`](notebooks/02_mlflow_tracking.ipynb)
+   de principio a fin (esto genera los runs en tu máquina).
+2. Levanta la interfaz visual:
+```bash
+   uv run mlflow ui --backend-store-uri file:./mlruns
+```
+3. Abre `http://127.0.0.1:5000` en tu navegador.
+
+El modelo candidato final está registrado en el Model Registry de MLflow como
+`mantenimiento-predictivo-hgb`, con el alias `champion`.
+
 ## Estado del proyecto
 
 - ✅ **Fase 1.1 — Problema de negocio:** ver [`docs/01_problema_negocio.md`](docs/01_problema_negocio.md).
@@ -44,4 +61,6 @@ Learning Repository / Kaggle). El archivo **no está versionado en git** (ver
 - ✅ **Fase 1.3 — EDA y modelo baseline:** ver [`notebooks/01_eda_baseline.ipynb`](notebooks/01_eda_baseline.ipynb)
   para el análisis completo, y [`docs/02_resultados_eda.md`](docs/02_resultados_eda.md)
   para el resumen ejecutivo de resultados.
-- ⏳ **Fase 2 — Experiment Tracking (MLflow):** en curso.
+- ✅ **Fase 2 — Experiment Tracking (MLflow):** ver [`notebooks/02_mlflow_tracking.ipynb`](notebooks/02_mlflow_tracking.ipynb)
+  para el tracking completo, y [`docs/03_resultados_experiment_tracking.md`](docs/03_resultados_experiment_tracking.md)
+  para el resumen ejecutivo de resultados.
