@@ -19,7 +19,7 @@ uv sync
 |---|---|
 | `make setup` | Instala/actualiza las dependencias |
 | `make eda` | Abre Jupyter Lab |
-| `make train` | Entrena el modelo (pendiente hasta Fase 2/3) |
+| `make train` | Entrena el modelo y lo registra en MLflow (`uv run python -m src.flows.training_flow`) |
 | `make test` | Corre los tests unitarios |
 | `make lint` | Revisa el estilo del código con ruff |
 | `make format` | Formatea el código con ruff |
@@ -54,6 +54,27 @@ notebook, igual que la data), así que para verlos:
 El modelo candidato final está registrado en el Model Registry de MLflow como
 `mantenimiento-predictivo-hgb`, con el alias `champion`.
 
+## Pipeline de Entrenamiento (Prefect)
+
+El entrenamiento está automatizado con un flow de Prefect que encapsula carga y
+validación de datos (con Pandera), preprocesamiento, entrenamiento y registro en
+MLflow — con un *quality gate* que solo promueve el modelo a `champion` si
+supera la meta de Recall ≥ 0.80. Código en `src/data`, `src/features`,
+`src/models` y `src/flows`.
+
+Para correr el pipeline completo (una sola vez):
+```bash
+uv run python -m src.flows.training_flow
+```
+
+Para registrar un despliegue programado (reentrenamiento automático semanal,
+cada domingo 2:00 am):
+```bash
+uv run python -m src.flows.deploy
+```
+
+Detalle completo en [`docs/04_pipeline_entrenamiento.md`](docs/04_pipeline_entrenamiento.md).
+
 ## Estado del proyecto
 
 - ✅ **Fase 1.1 — Problema de negocio:** ver [`docs/01_problema_negocio.md`](docs/01_problema_negocio.md).
@@ -63,4 +84,7 @@ El modelo candidato final está registrado en el Model Registry de MLflow como
   para el resumen ejecutivo de resultados.
 - ✅ **Fase 2 — Experiment Tracking (MLflow):** ver [`notebooks/02_mlflow_tracking.ipynb`](notebooks/02_mlflow_tracking.ipynb)
   para el tracking completo, y [`docs/03_resultados_experiment_tracking.md`](docs/03_resultados_experiment_tracking.md)
+  para el resumen ejecutivo de resultados.
+- ✅ **Fase 3 — Pipeline de Entrenamiento (Prefect):** ver [`src/flows/training_flow.py`](src/flows/training_flow.py)
+  para el pipeline completo, y [`docs/04_pipeline_entrenamiento.md`](docs/04_pipeline_entrenamiento.md)
   para el resumen ejecutivo de resultados.
