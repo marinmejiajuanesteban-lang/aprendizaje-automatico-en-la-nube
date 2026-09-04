@@ -107,6 +107,21 @@ En ambos casos, la documentación interactiva (Swagger UI) queda disponible en
 
 Detalle completo en [`docs/05_deployment.md`](docs/05_deployment.md).
 
+## Monitoreo (Evidently AI)
+
+Se propone (y se valida con una demostración real) un esquema de monitoreo de
+*data drift* sobre las features de entrada del modelo, usando Evidently AI. La
+demostración compara los datos de entrenamiento contra un lote simulado con un
+cambio operativo realista, y confirma que Evidently detecta el drift a nivel de
+columna individual.
+
+Ver el notebook de demostración en
+[`notebooks/03_monitoreo_evidently.ipynb`](notebooks/03_monitoreo_evidently.ipynb)
+(los reportes HTML generados quedan en
+[`docs/monitoring_reports/`](docs/monitoring_reports/)), y la propuesta completa
+de diseño (qué monitorear, con qué frecuencia, y qué dispararía un
+reentrenamiento) en [`docs/06_propuesta_monitoreo.md`](docs/06_propuesta_monitoreo.md).
+
 ## Estado del proyecto
 
 - **Fase 1.1 — Problema de negocio:** ver [`docs/01_problema_negocio.md`](docs/01_problema_negocio.md).
@@ -123,3 +138,6 @@ Detalle completo en [`docs/05_deployment.md`](docs/05_deployment.md).
 - **Fase 4 — Deployment (FastAPI + Docker):** ver [`src/api/main.py`](src/api/main.py)
   para la API completa, y [`docs/05_deployment.md`](docs/05_deployment.md)
   para el resumen ejecutivo de resultados.
+- **Fase 5 — Monitoreo (propuesta de diseño):** ver [`notebooks/03_monitoreo_evidently.ipynb`](notebooks/03_monitoreo_evidently.ipynb)
+  para la demostración con Evidently AI, y [`docs/06_propuesta_monitoreo.md`](docs/06_propuesta_monitoreo.md)
+  para la propuesta completa.
