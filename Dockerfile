@@ -11,9 +11,9 @@ RUN pip install --no-cache-dir uv
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
 
-# Copiar el código y el modelo entrenado (mlruns/ contiene el modelo champion
-# registrado en MLflow — hace falta correr el pipeline de la Fase 3 al menos
-# una vez localmente antes de construir esta imagen).
+# Copiar el código y el modelo entrenado (models/champion/ es la copia portable
+# y autocontenida del modelo champion — hay que generarla antes de construir la
+# imagen con: uv run python -m src.models.export_champion).
 COPY src/ ./src/
 COPY models/champion ./models/champion
 

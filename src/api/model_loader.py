@@ -2,7 +2,6 @@
 
 import mlflow
 
-MODEL_URI = "models:/mantenimiento-predictivo-hgb@champion"  # usado solo por export_champion.py
 LOCAL_MODEL_PATH = "models/champion"
 DECISION_THRESHOLD = 0.30
 
