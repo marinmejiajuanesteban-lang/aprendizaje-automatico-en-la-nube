@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+notebooks/
+data/raw/*.csv
+data/processed/*.csv
+prueba.ipynb
+docs/revision-buenas-practicas-mlops.md
+.pytest_cache/

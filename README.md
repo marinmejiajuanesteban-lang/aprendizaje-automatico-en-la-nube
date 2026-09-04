@@ -6,6 +6,7 @@ Proyecto final MLOps — mantenimiento predictivo industrial (AI4I 2020)
 
 - Python 3.11+ y [uv](https://docs.astral.sh/uv/) para gestionar el entorno y las dependencias.
 - (Opcional) `make`, para usar los comandos estandarizados del `Makefile`.
+- Docker Desktop, para construir y correr la API en contenedor (ver sección "API de Predicciones" más abajo).
 
 ## Setup
 
@@ -75,16 +76,50 @@ uv run python -m src.flows.deploy
 
 Detalle completo en [`docs/04_pipeline_entrenamiento.md`](docs/04_pipeline_entrenamiento.md).
 
+## API de Predicciones (FastAPI + Docker)
+
+El modelo campeón se expone como una API REST con FastAPI, empaquetada en una
+imagen Docker. Antes de correrla (local o en Docker), hay que exportar una
+copia portable y autocontenida del modelo campeón:
+
+```bash
+uv run python -m src.models.export_champion
+```
+
+Este paso es necesario porque MLflow guarda rutas absolutas del sistema de
+archivos en su tracking store local, que no son portables entre máquinas ni
+dentro de un contenedor Docker (ver detalle en
+[`docs/05_deployment.md`](docs/05_deployment.md)).
+
+**Correr localmente:**
+```bash
+uv run uvicorn src.api.main:app --reload
+```
+
+**Correr con Docker:**
+```bash
+docker build -t mantenimiento-predictivo-api .
+docker run -p 8000:8000 mantenimiento-predictivo-api
+```
+
+En ambos casos, la documentación interactiva (Swagger UI) queda disponible en
+`http://127.0.0.1:8000/docs`.
+
+Detalle completo en [`docs/05_deployment.md`](docs/05_deployment.md).
+
 ## Estado del proyecto
 
-- ✅ **Fase 1.1 — Problema de negocio:** ver [`docs/01_problema_negocio.md`](docs/01_problema_negocio.md).
-- ✅ **Fase 1.2 — Setup del entorno:** este mismo repo (`uv`, estructura de carpetas, Makefile).
-- ✅ **Fase 1.3 — EDA y modelo baseline:** ver [`notebooks/01_eda_baseline.ipynb`](notebooks/01_eda_baseline.ipynb)
+- **Fase 1.1 — Problema de negocio:** ver [`docs/01_problema_negocio.md`](docs/01_problema_negocio.md).
+- **Fase 1.2 — Setup del entorno:** este mismo repo (`uv`, estructura de carpetas, Makefile).
+- **Fase 1.3 — EDA y modelo baseline:** ver [`notebooks/01_eda_baseline.ipynb`](notebooks/01_eda_baseline.ipynb)
   para el análisis completo, y [`docs/02_resultados_eda.md`](docs/02_resultados_eda.md)
   para el resumen ejecutivo de resultados.
-- ✅ **Fase 2 — Experiment Tracking (MLflow):** ver [`notebooks/02_mlflow_tracking.ipynb`](notebooks/02_mlflow_tracking.ipynb)
+- **Fase 2 — Experiment Tracking (MLflow):** ver [`notebooks/02_mlflow_tracking.ipynb`](notebooks/02_mlflow_tracking.ipynb)
   para el tracking completo, y [`docs/03_resultados_experiment_tracking.md`](docs/03_resultados_experiment_tracking.md)
   para el resumen ejecutivo de resultados.
-- ✅ **Fase 3 — Pipeline de Entrenamiento (Prefect):** ver [`src/flows/training_flow.py`](src/flows/training_flow.py)
+- **Fase 3 — Pipeline de Entrenamiento (Prefect):** ver [`src/flows/training_flow.py`](src/flows/training_flow.py)
   para el pipeline completo, y [`docs/04_pipeline_entrenamiento.md`](docs/04_pipeline_entrenamiento.md)
+  para el resumen ejecutivo de resultados.
+- **Fase 4 — Deployment (FastAPI + Docker):** ver [`src/api/main.py`](src/api/main.py)
+  para la API completa, y [`docs/05_deployment.md`](docs/05_deployment.md)
   para el resumen ejecutivo de resultados.
