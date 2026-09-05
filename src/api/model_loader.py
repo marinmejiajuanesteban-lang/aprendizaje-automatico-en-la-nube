@@ -2,8 +2,7 @@
 
 import mlflow
 
-LOCAL_MODEL_PATH = "models/champion"
-DECISION_THRESHOLD = 0.30
+from src.config import LOCAL_MODEL_PATH
 
 
 def load_champion_model():

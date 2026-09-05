@@ -1,7 +1,7 @@
 """Carga y validación del dataset AI4I2020 (Fase 3 — Pipeline de datos)."""
 
 import pandas as pd
-from pandera.pandas import Column, Check, DataFrameSchema
+from pandera.pandas import Check, Column, DataFrameSchema
 
 # Esquema/contrato del dataset crudo: columnas, tipos y rangos esperados.
 # Sirve para detectar temprano si el CSV cambió de forma inesperada

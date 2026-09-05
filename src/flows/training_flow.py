@@ -9,12 +9,12 @@ from sklearn.model_selection import train_test_split
 from src.data.load_data import load_raw_data
 from src.features.preprocessing import get_feature_target_split
 from src.models.train import (
+    MLFLOW_EXPERIMENT_NAME,
     build_training_pipeline,
-    train_model,
     evaluate_model,
     log_run_to_mlflow,
     register_champion_model,
-    MLFLOW_EXPERIMENT_NAME,
+    train_model,
 )
 
 RECALL_THRESHOLD_PARA_PROMOCION = 0.80  # meta de la Sección 1.1

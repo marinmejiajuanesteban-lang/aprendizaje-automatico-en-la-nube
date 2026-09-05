@@ -122,6 +122,23 @@ Ver el notebook de demostración en
 de diseño (qué monitorear, con qué frecuencia, y qué dispararía un
 reentrenamiento) en [`docs/06_propuesta_monitoreo.md`](docs/06_propuesta_monitoreo.md).
 
+## Testing y Buenas Prácticas
+
+El proyecto centraliza su configuración (nombre del modelo, umbral de
+decisión, rutas) en [`src/config.py`](src/config.py), normaliza los finales
+de línea con `.gitattributes`, y cuenta con linting (Ruff) y una suite de 11
+tests unitarios (pytest) sobre la validación de datos, el preprocesamiento y
+los esquemas de la API.
+
+```bash
+make lint    # revisa el estilo del código
+make format  # formatea el código automáticamente
+make test    # corre los tests unitarios
+```
+
+Ver el detalle completo en
+[`docs/07_testing_buenas_practicas.md`](docs/07_testing_buenas_practicas.md).
+
 ## Estado del proyecto
 
 - **Fase 1.1 — Problema de negocio:** ver [`docs/01_problema_negocio.md`](docs/01_problema_negocio.md).

@@ -4,16 +4,15 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from src.api.model_loader import load_champion_model, DECISION_THRESHOLD
-from src.api.schemas import SensorReading, PredictionResponse
+from src.api.model_loader import load_champion_model
+from src.api.schemas import PredictionResponse, SensorReading
+from src.config import DECISION_THRESHOLD
 
 model_state = {}
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Se ejecuta una sola vez al arrancar la API — cargar el modelo aquí,
-    # no dentro de /predict, para no pagar el costo de carga en cada request.
     model_state["model"] = load_champion_model()
     yield
     model_state.clear()
@@ -29,10 +28,7 @@ app = FastAPI(
 
 @app.get("/health")
 def health():
-    return {
-        "status": "ok",
-        "model_loaded": "model" in model_state,
-    }
+    return {"status": "ok", "model_loaded": "model" in model_state}
 
 
 @app.post("/predict", response_model=PredictionResponse)
@@ -41,7 +37,6 @@ def predict(reading: SensorReading):
     df_input = reading.to_model_input()
     probability = float(model.predict_proba(df_input)[:, 1][0])
     predicted = probability >= DECISION_THRESHOLD
-
     return PredictionResponse(
         failure_probability=probability,
         failure_predicted=predicted,

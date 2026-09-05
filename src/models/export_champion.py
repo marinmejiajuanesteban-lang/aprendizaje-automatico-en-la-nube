@@ -14,15 +14,14 @@ from pathlib import Path
 
 import mlflow
 
-MODEL_URI = "models:/mantenimiento-predictivo-hgb@champion"
-EXPORT_PATH = "models/champion"
+from src.config import LOCAL_MODEL_PATH, MODEL_URI
 
 
 def export_champion_model():
     mlflow.set_tracking_uri("file:./mlruns")
     model = mlflow.sklearn.load_model(MODEL_URI)
 
-    export_path = Path(EXPORT_PATH)
+    export_path = Path(LOCAL_MODEL_PATH)
     if export_path.exists():
         shutil.rmtree(export_path)
 

@@ -2,7 +2,7 @@
 
 import pandas as pd
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 TARGET_COLUMN = "Machine failure"
 
