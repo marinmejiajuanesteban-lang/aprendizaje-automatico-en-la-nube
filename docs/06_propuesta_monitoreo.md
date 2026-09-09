@@ -5,7 +5,11 @@
 Esta fase no implementa un sistema de monitoreo en producción (no es exigido por
 el checklist del curso), sino que **propone su diseño** y lo valida con una
 demostración real usando Evidently AI: [`notebooks/03_monitoreo_evidently.ipynb`](../notebooks/03_monitoreo_evidently.ipynb).
-Los reportes generados quedan como evidencia en [`docs/monitoring_reports/`](monitoring_reports/).
+Los resultados por columna se ven directamente en las tablas del notebook (se
+renderiza completo en GitHub, sin descargar nada). El notebook también genera
+dos reportes interactivos completos en [`docs/monitoring_reports/`](monitoring_reports/),
+pero al ser archivos HTML, GitHub no los renderiza en el navegador — hay que
+descargarlos y abrirlos localmente para explorarlos.
 
 ## Qué monitorear y por qué
 
@@ -46,6 +50,30 @@ Se generaron dos reportes:
 | Caso sano | `X_train` vs. `X_test` (misma distribución) | 0 de 6 columnas con drift — control correcto |
 | Caso con drift simulado | `X_train` vs. un lote con `Type` forzado a "L" y `Air temperature [K]` corrida +6K | 2 de 6 columnas con drift detectado (`Air temperature [K]`, `Type`) |
 
+Detalle por columna (el que el veredicto agregado no muestra):
+
+**Caso sano**
+
+| Columna | Método | Umbral | Score | Drift detectado |
+|---|---|---|---|---|
+| Air temperature [K] | Wasserstein distance (normed) | 0.10 | 0.0157 | No |
+| Process temperature [K] | Wasserstein distance (normed) | 0.10 | 0.0283 | No |
+| Rotational speed [rpm] | Wasserstein distance (normed) | 0.10 | 0.0284 | No |
+| Torque [Nm] | Wasserstein distance (normed) | 0.10 | 0.0268 | No |
+| Tool wear [min] | Wasserstein distance (normed) | 0.10 | 0.0284 | No |
+| Type | Jensen-Shannon distance | 0.10 | 0.0143 | No |
+
+**Caso con drift simulado**
+
+| Columna | Método | Umbral | Score | Drift detectado |
+|---|---|---|---|---|
+| Air temperature [K] | Wasserstein distance (normed) | 0.10 | 3.0036 | **Sí** |
+| Process temperature [K] | Wasserstein distance (normed) | 0.10 | 0.0283 | No |
+| Rotational speed [rpm] | Wasserstein distance (normed) | 0.10 | 0.0284 | No |
+| Torque [Nm] | Wasserstein distance (normed) | 0.10 | 0.0268 | No |
+| Tool wear [min] | Wasserstein distance (normed) | 0.10 | 0.0284 | No |
+| Type | Jensen-Shannon distance | 0.10 | 0.4026 | **Sí** |
+
 **Hallazgo importante:** en el caso simulado, el veredicto agregado de "Dataset
 Drift" de Evidently siguió diciendo "NOT detected", porque por defecto solo
 marca el dataset completo como "con drift" si más del 50% de las columnas lo
@@ -85,3 +113,4 @@ recomienda no confiar solo en el veredicto agregado.
 - Dashboard o alertas automáticas (Slack/email) cuando se detecte drift o caída
   de desempeño — fuera del alcance de este curso, mencionado como extensión
   natural.
+  
