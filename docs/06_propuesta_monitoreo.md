@@ -110,7 +110,3 @@ recomienda no confiar solo en el veredicto agregado.
 ## Pendiente para futuras fases
 
 - Implementación real del `@task` de drift dentro del flow de Prefect.
-- Dashboard o alertas automáticas (Slack/email) cuando se detecte drift o caída
-  de desempeño — fuera del alcance de este curso, mencionado como extensión
-  natural.
-  

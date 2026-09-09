@@ -165,3 +165,4 @@ Ver el detalle completo en
 - **Fase 5 — Monitoreo (propuesta de diseño):** ver [`notebooks/03_monitoreo_evidently.ipynb`](notebooks/03_monitoreo_evidently.ipynb)
   para la demostración con Evidently AI, y [`docs/06_propuesta_monitoreo.md`](docs/06_propuesta_monitoreo.md)
   para la propuesta completa.
+  - **Fase 6 — Testing y Buenas Prácticas:** ver [`docs/07_testing_buenas_practicas.md`](docs/07_testing_buenas_practicas.md) para el detalle completo (config centralizada, `.gitattributes`, ruff, y 11 tests unitarios).

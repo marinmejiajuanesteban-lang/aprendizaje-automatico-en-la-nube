@@ -100,13 +100,3 @@ make lint    # revisa el estilo del código con ruff
 make format  # formatea el código automáticamente con ruff
 make test    # corre los 11 tests unitarios con pytest
 ```
-
-## Pendiente para futuras fases
-
-- Tests de integración para los endpoints de la API (ej. con
-  `TestClient` de FastAPI), en lugar de solo los esquemas de entrada/salida.
-- Integración continua (CI) que corra `make lint` y `make test`
-  automáticamente en cada push (ej. GitHub Actions) — quedó fuera de alcance
-  de este curso pero sería el siguiente paso natural en un proyecto real.
-- Flujo de trabajo con ramas y pull requests, en lugar de commits directos a
-  `main`.
