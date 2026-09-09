@@ -115,12 +115,19 @@ demostración compara los datos de entrenamiento contra un lote simulado con un
 cambio operativo realista, y confirma que Evidently detecta el drift a nivel de
 columna individual.
 
-Ver el notebook de demostración en
+Los resultados se ven directamente en las tablas del notebook de demostración
+(se renderizan en GitHub sin necesidad de abrir nada aparte):
+
 [`notebooks/03_monitoreo_evidently.ipynb`](notebooks/03_monitoreo_evidently.ipynb)
-(los reportes HTML generados quedan en
-[`docs/monitoring_reports/`](docs/monitoring_reports/)), y la propuesta completa
-de diseño (qué monitorear, con qué frecuencia, y qué dispararía un
-reentrenamiento) en [`docs/06_propuesta_monitoreo.md`](docs/06_propuesta_monitoreo.md).
+
+Los reportes HTML interactivos de Evidently (`docs/monitoring_reports/`) se
+conservan como material opcional para explorar localmente — GitHub no los
+renderiza como página, solo como código fuente, así que no son la evidencia
+principal.
+
+La propuesta completa de diseño (qué monitorear, con qué frecuencia, y qué
+dispararía un reentrenamiento) está en
+[`docs/06_propuesta_monitoreo.md`](docs/06_propuesta_monitoreo.md).
 
 ## Testing y Buenas Prácticas
 
