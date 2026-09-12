@@ -1,8 +1,9 @@
-.PHONY: help setup eda train test lint format
+.PHONY: help setup eda train test lint format smoke
 
 help:
 	@echo "Comandos disponibles:"
 	@echo "  make setup   - instala/actualiza las dependencias del proyecto"
+	@echo "  make smoke    - verifica rápido que el entorno esté listo"
 	@echo "  make eda     - abre Jupyter Lab para trabajar los notebooks"
 	@echo "  make train   - entrena el modelo y lo registra en MLflow (pipeline de Prefect)"
 	@echo "  make test    - corre los tests unitarios"
@@ -12,6 +13,9 @@ help:
 setup:
 	uv sync
 
+smoke:
+	uv run python -m src.smoke_test
+	
 eda:
 	uv run jupyter lab
 
