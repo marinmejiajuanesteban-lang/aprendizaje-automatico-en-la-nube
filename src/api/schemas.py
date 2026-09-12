@@ -12,11 +12,11 @@ class SensorReading(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
     type: Literal["L", "M", "H"] = Field(alias="Type")
-    air_temperature_k: float = Field(alias="Air temperature [K]", gt=250, lt=350)
-    process_temperature_k: float = Field(alias="Process temperature [K]", gt=250, lt=350)
-    rotational_speed_rpm: float = Field(alias="Rotational speed [rpm]", gt=0)
-    torque_nm: float = Field(alias="Torque [Nm]", ge=0)
-    tool_wear_min: float = Field(alias="Tool wear [min]", ge=0)
+    air_temperature_k: float = Field(alias="Air temperature [K]", ge=290, le=310)
+    process_temperature_k: float = Field(alias="Process temperature [K]", ge=300, le=320)
+    rotational_speed_rpm: float = Field(alias="Rotational speed [rpm]", ge=1000, le=3000)
+    torque_nm: float = Field(alias="Torque [Nm]", ge=0, le=90)
+    tool_wear_min: float = Field(alias="Tool wear [min]", ge=0, le=300)
 
     def to_model_input(self) -> pd.DataFrame:
         """Convierte la lectura a un DataFrame de una fila con los nombres de
