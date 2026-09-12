@@ -146,6 +146,20 @@ make test    # corre los tests unitarios
 Ver el detalle completo en
 [`docs/07_testing_buenas_practicas.md`](docs/07_testing_buenas_practicas.md).
 
+## Integración Continua (CI/CD)
+
+El repositorio cuenta con un workflow de GitHub Actions (`.github/workflows/ci.yml`) que corre automáticamente `make lint` y `make test` en cada push o pull request hacia `main`, evitando que se integren cambios que rompan el estilo de código o los tests.
+
+Además, `make smoke` permite verificar rápidamente que el entorno esté listo (librerías instaladas, módulos del proyecto importables) antes de correr el entrenamiento completo:
+
+```bash
+make smoke  # verifica que el entorno esté listo antes de entrenar
+```
+
+## Riesgos del proyecto
+
+Un análisis de los principales riesgos técnicos identificados (degradación del modelo, limitaciones del monitoreo de drift, dependencias de MLflow, entre otros) y cómo se detectarían y mitigarían está documentado en [`docs/08_riesgos.md`](docs/08_riesgos.md).
+
 ## Estado del proyecto
 
 - **Fase 1.1 — Problema de negocio:** ver [`docs/01_problema_negocio.md`](docs/01_problema_negocio.md).
